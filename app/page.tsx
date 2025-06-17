@@ -3,7 +3,10 @@ import StoreViewWrapper from "@/components/product/product-store-view-wrapper.co
 
 
 export default async function Page() {
-  const res = await fetch('/api/products', { cache: 'no-store' })
+  const base = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+  const res = await fetch(`${base}/api/products`, { cache: 'no-store' })
+
+  console.log(res)
   if (!res.ok) {
     throw new Error('Erreur lors de la récupération des produits')
   }

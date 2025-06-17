@@ -32,7 +32,7 @@ export default function ProductGridItems({ products }: ProductGridItemsProps) {
         return (
             <div className="h-full w-full flex flex-col items-center justify-center">
                 <p className="text-3xl my-12">Aucun produit disponible.</p>
-                <Link href="/boutique">
+                <Link href="/">
                     <span className="black-button mb-12 p-[15px]">Retour à la boutique</span>
                 </Link>
             </div>
@@ -47,10 +47,10 @@ export default function ProductGridItems({ products }: ProductGridItemsProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-0 lg:ml-16 gap-4">
                 {visibleProducts.map((product) => (
                     <div key={product.id} className="cursor-pointer">
-                        <Link href={`/boutique/produit/${product.category}-${product.id}`}>
+                        <Link href={`/shop/${product.id}`}>
                             <div className="flex justify-center relative">
                                 <Image
-                                    src={product.images?.[0] ?? '/placeholder.png'}
+                                    src={'/zoomLiquid.jpg'}
                                     alt={product.name}
                                     height={300}
                                     width={400}
