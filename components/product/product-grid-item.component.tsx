@@ -47,7 +47,7 @@ export default function ProductGridItems({ products }: ProductGridItemsProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-0 lg:ml-16 gap-4">
                 {visibleProducts.map((product) => (
                     <div key={product.id} className="cursor-pointer">
-                        <Link href={`/shop/${product.id}`}>
+                        <Link href={`/product/${product.id}`}>
                             <div className="flex justify-center relative">
                                 <Image
                                     src={'/zoomLiquid.jpg'}

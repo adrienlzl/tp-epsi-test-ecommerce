@@ -1,11 +1,9 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {Product} from "@/lib/interfaces/interface";
-import BreadcrumbComponent from "@/components/breadcrumb/Breadcrumb";
-
+import type { Product } from '@/lib/interfaces/interface'
 
 
 interface ProductDetailItemsProps {
@@ -13,45 +11,41 @@ interface ProductDetailItemsProps {
 }
 
 export default function ProductDetailItems({ product }: ProductDetailItemsProps) {
-    // Image principale et galerie
+    // État pour l'image principale
     const [mainImage, setMainImage] = useState<string>(
         product.images[0] ?? '/placeholder.png'
     )
-    const imagesWithoutFirst = useMemo(() => product.images.slice(1), [product.images])
+    // État pour la quantité
+    const [quantity, setQuantity] = useState<number>(1)
 
-    // Fil d’Ariane
-    const breadcrumbLinks = useMemo(
-        () => [
-            { label: 'Accueil', url: '/' },
-            { label: 'Boutique', url: '/shop' },
-            { label: product.name, url: `/shop/${product.id}` },
-        ],
-        [product.name, product.id]
-    )
+    // Prépare les autres images
+    const thumbnailImages = product.images.slice(1)
+
+    // Prépare les données à passer à CartButtonComponent
+    const productDetails = {
+        id: product.id,              // UUID
+        name: product.name,
+        productNumber: quantity,
+        variations: null             // pas de variations dans ton interface
+    }
 
     return (
-        <div className="w-[90%] md:w-[70%] mx-auto mt-[100px] flex flex-col lg:flex-row gap-8">
-            {/* Section Images */}
+        <div className="w-[90%] md:w-[70%] mx-auto mt-16 flex flex-col lg:flex-row gap-8">
+            {/* --- Galerie d'images --- */}
             <div className="lg:w-1/2">
-                <BreadcrumbComponent links={breadcrumbLinks} />
-
-                {/* Image principale */}
                 <div className="relative w-full aspect-[3/4] mb-4">
                     <Image
                         src={'/zoomLiquid.jpg'}
-                        alt={`Image de ${product.name}`}
+                        alt={product.name}
                         fill
                         className="object-cover"
                         priority
-                        sizes="(max-width: 768px) 100vw, 50vw"
                     />
                 </div>
-
-                {/* Galerie */}
                 <div className="grid grid-cols-4 gap-2">
-                    {imagesWithoutFirst.map((url, idx) => (
+                    {thumbnailImages.map((url, i) => (
                         <button
-                            key={idx}
+                            key={i}
                             onClick={() => setMainImage(url)}
                             className={`relative aspect-square border-2 transition ${
                                 mainImage === url ? 'border-primary' : 'border-transparent'
@@ -59,33 +53,31 @@ export default function ProductDetailItems({ product }: ProductDetailItemsProps)
                         >
                             <Image
                                 src={'/zoomLiquid.jpg'}
-                                alt={`${product.name} vue ${idx + 2}`}
+                                alt={`${product.name} vue ${i + 2}`}
                                 fill
                                 className="object-cover"
-                                sizes="25vw"
                             />
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* Section Infos */}
+            {/* --- Informations et actions --- */}
             <div className="lg:w-1/2 flex flex-col space-y-6">
                 <h1 className="text-3xl font-bold">{product.name}</h1>
+
                 <p className="text-2xl font-semibold">
                     {product.price.toLocaleString('fr-FR', {
                         style: 'currency',
                         currency: product.currency,
                     })}
                 </p>
-                <p className="text-base text-gray-700">{product.description_long}</p>
 
-                <div className="space-y-2">
+                <p className="text-gray-700">{product.description_long}</p>
+
+                <div className="space-y-1">
                     <p>
-                        <span className="font-semibold">Réf produit :</span> {product.id}
-                    </p>
-                    <p>
-                        <span className="font-semibold">Stock disponible :</span> {product.stock}
+                        <span className="font-semibold">Stock :</span> {product.stock}
                     </p>
                     <p>
                         <span className="font-semibold">Catégorie :</span> {product.category}
@@ -95,8 +87,22 @@ export default function ProductDetailItems({ product }: ProductDetailItemsProps)
                     </p>
                 </div>
 
-                <Link href="/">
-          <span className="inline-block bg-black text-white py-2 px-4 rounded hover:opacity-90">
+                {/* Quantité */}
+                <ProductQuantityComponent onQuantityChange={setQuantity} />
+
+                {/* Bouton Ajouter au panier */}
+                <CartButtonComponent data={productDetails} />
+
+                {/* Lien Commander */}
+                <Link href="/checkout">
+                    <button className="w-full bg-black text-white py-2 px-6 rounded hover:opacity-90">
+                        Commander
+                    </button>
+                </Link>
+
+                {/* Retour à la boutique */}
+                <Link href="/shop">
+          <span className="inline-block text-sm text-primary hover:underline mt-6">
             ← Retour à la boutique
           </span>
                 </Link>
