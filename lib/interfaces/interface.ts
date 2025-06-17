@@ -75,3 +75,25 @@ export interface OrderItem {
     /** Prix total pour cette ligne (quantity * unitPrice). DECIMAL représenté en number */
     totalPrice: number;
 }
+export interface Product {
+    /** Identifiant unique du produit (UUID) */
+    id: string
+    /** Nom affiché du produit */
+    name: string
+    /** Description courte */
+    description_short: string
+    /** Description longue */
+    description_long: string
+    /** Prix unitaire */
+    price: number
+    /** Devise (ISO 4217) */
+    currency: string
+    /** Quantité en stock */
+    stock: number
+    /** Catégorie / type (ex. "t-shirt", "pantalon") */
+    category: string
+    /** Poids en grammes */
+    weight: number
+    /** URLs des images du produit */
+    images: string[]
+}
