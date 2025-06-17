@@ -4,30 +4,42 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Product } from '@/lib/interfaces/interface'
-
+import ProductQuantityComponent from '@/components/product/productQuantityComponent'
+import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
+import { useCartStore } from '@/components/cart/cart-store'
 
 interface ProductDetailItemsProps {
     product: Product
 }
 
 export default function ProductDetailItems({ product }: ProductDetailItemsProps) {
-    // État pour l'image principale
+    // Image principale et thumbnails
     const [mainImage, setMainImage] = useState<string>(
         product.images[0] ?? '/placeholder.png'
     )
-    // État pour la quantité
+    // Quantité sélectionnée
     const [quantity, setQuantity] = useState<number>(1)
 
-    // Prépare les autres images
-    const thumbnailImages = product.images.slice(1)
+    // Récupère la fonction addItem du store
+    const addItem = useCartStore(state => state.addItem)
 
-    // Prépare les données à passer à CartButtonComponent
-    const productDetails = {
-        id: product.id,              // UUID
+    // Prépare le payload à passer au store
+    const cartPayload = {
+        id: product.id,
         name: product.name,
-        productNumber: quantity,
-        variations: null             // pas de variations dans ton interface
+        quantity,
+        price: product.price,
+        image: product.images[0],
     }
+
+    // Handler du clic “Ajouter au panier”
+    const handleAddToCart = () => {
+        addItem(cartPayload)
+        toast.success('Article ajouté au panier !')  // Sonner toast
+    }
+
+    const thumbnailImages = product.images.slice(1)
 
     return (
         <div className="w-[90%] md:w-[70%] mx-auto mt-16 flex flex-col lg:flex-row gap-8">
@@ -91,17 +103,16 @@ export default function ProductDetailItems({ product }: ProductDetailItemsProps)
                 <ProductQuantityComponent onQuantityChange={setQuantity} />
 
                 {/* Bouton Ajouter au panier */}
-                <CartButtonComponent data={productDetails} />
-
-                {/* Lien Commander */}
-                <Link href="/checkout">
-                    <button className="w-full bg-black text-white py-2 px-6 rounded hover:opacity-90">
-                        Commander
-                    </button>
-                </Link>
+                <Button
+                    onClick={handleAddToCart}
+                    size="lg"
+                    className="w-full mt-4"
+                >
+                    Ajouter au panier
+                </Button>
 
                 {/* Retour à la boutique */}
-                <Link href="/shop">
+                <Link href="/">
           <span className="inline-block text-sm text-primary hover:underline mt-6">
             ← Retour à la boutique
           </span>

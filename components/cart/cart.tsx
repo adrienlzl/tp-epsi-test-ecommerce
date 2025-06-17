@@ -1,4 +1,8 @@
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from '@/components/ui/sheet';
+import {useCartStore} from "@/components/cart/cart-store";
+import {CartButton} from "@/components/cart/add-to-cart-button";
+import {CartItem} from "@/components/cart/cart-item";
+import {CartSummary} from "@/components/cart/cart-summary";
 
 export function Cart() {
     const {items, isOpen, setIsOpen, updateQuantity} = useCartStore();

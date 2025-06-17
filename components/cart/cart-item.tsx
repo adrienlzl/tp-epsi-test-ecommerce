@@ -1,15 +1,15 @@
+// components/cart/CartItem.tsx
 'use client';
 
-import { Button } from '@/components/ui/button';
-
-import { CartItem as CartItemType } from "@/lib/interfaces/cart.interface";
-
-import { getProductById } from '@libs/queries/product';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import type { CartItem as CartItemType } from '@/lib/interfaces/cart.interface';
+import { Button } from '@/components/ui/button';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
 import { toast } from 'sonner';
+import {Product} from "@/lib/interfaces/interface";
+import {getProductById} from "@/lib/queries/product";
 
 interface CartItemProps {
     item: CartItemType;
@@ -19,11 +19,11 @@ interface CartItemProps {
 export function CartItem({ item, onUpdateQuantity }: CartItemProps) {
     const [isUpdating, setIsUpdating] = useState(false);
 
-    // On récupère les détails du produit pour connaître le stock
-    const { data: product, isLoading, error } = useQuery<Product | null>({
+    // Récupère les détails du produit (notamment le stock)
+    const { data: product, isLoading, error } = useQuery<Product, Error>({
         queryKey: ['product', item.id],
         queryFn: () => getProductById(item.id),
-        refetchInterval: 30000,
+        refetchInterval: 30_000,
         retry: 2,
     });
 
@@ -58,11 +58,11 @@ export function CartItem({ item, onUpdateQuantity }: CartItemProps) {
 
     return (
         <div className="flex w-full flex-col sm:flex-row items-center space-x-4 p-4 border rounded-lg">
-            {/* Image et infos */}
+            {/* Image et infos produit */}
             <div className="flex items-center">
                 {item.image && (
                     <Image
-                        src={item.image}
+                        src={'/zoomLiquid.jpg'}
                         alt={item.name}
                         width={64}
                         height={64}
