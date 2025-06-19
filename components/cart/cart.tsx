@@ -30,7 +30,7 @@ export function Cart() {
                     <SheetTitle className="ml-8 text-xl font-semibold tendre-black">Votre Panier</SheetTitle>
                 </SheetHeader>
 
-                <div className="mt-8 space-y-4 max-h-[75vh] w-full overflow-y-auto">
+                <div className="pl-4 pr-4 mt-8 space-y-4 max-h-[75vh] w-full overflow-y-auto">
                     {items.length === 0 ? (
                         <h3 className="text-center text-3xl tendre-black font-bold mt-24">Votre panier est vide</h3>
                     ) : (

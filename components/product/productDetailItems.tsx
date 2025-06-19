@@ -31,12 +31,13 @@ export default function ProductDetailItems({ product }: ProductDetailItemsProps)
         quantity,
         price: product.price,
         image: product.images[0],
+        weight: product.weight
     }
 
     // Handler du clic “Ajouter au panier”
     const handleAddToCart = () => {
         addItem(cartPayload)
-        toast.success('Article ajouté au panier !')  // Sonner toast
+        toast.success('Article ajouté au panier !')
     }
 
     const thumbnailImages = product.images.slice(1)
@@ -100,7 +101,9 @@ export default function ProductDetailItems({ product }: ProductDetailItemsProps)
                 </div>
 
                 {/* Quantité */}
-                <ProductQuantityComponent onQuantityChange={setQuantity} />
+                <ProductQuantityComponent
+                    onQuantityChange={setQuantity}
+                    stock={product.stock} />
 
                 {/* Bouton Ajouter au panier */}
                 <Button

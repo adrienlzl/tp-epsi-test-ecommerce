@@ -57,7 +57,7 @@ export function CartItem({ item, onUpdateQuantity }: CartItemProps) {
     }
 
     return (
-        <div className="flex w-full flex-col sm:flex-row items-center space-x-4 p-4 border rounded-lg">
+        <div className="flex justify-between w-full flex-col sm:flex-row items-center space-x-4 p-4 border rounded-lg">
             {/* Image et infos produit */}
             <div className="flex items-center">
                 {item.image && (
