@@ -1,6 +1,5 @@
 // app/product/[productId]/page.tsx
 
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Product } from '@/lib/interfaces/interface'
 import ProductDetailItems from '@/components/product/productDetailItems'
@@ -31,13 +30,6 @@ export default async function PageProductDetailItem({ params }: PageProps) {
     return (
         <div className="px-6 lg:px-20 py-10">
             <ProductDetailItems product={product} />
-            <div className="mt-8">
-                <Link href="/">
-          <span className="inline-block bg-black text-white py-2 px-4 rounded hover:opacity-80">
-            ← Retour à la boutique
-          </span>
-                </Link>
-            </div>
         </div>
     )
 }
