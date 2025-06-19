@@ -129,7 +129,8 @@ export default function CommandPageMainComponent() {
 
 
             router.push("/confirmation-livraison");
-        } catch (error) {
+        }
+        catch (error) {
             console.error("handleConfirmOrder :", error);
             // TODO : afficher un toast ou un message d'erreur plus convivial
         }
@@ -221,19 +222,19 @@ export default function CommandPageMainComponent() {
                             />
                             <input
                                 type="text"
-                                placeholder="Ville"
-                                value={billingAddress.city}
+                                placeholder="Code postal"
+                                value={billingAddress.zipCode}
                                 onChange={(e) =>
-                                    setBillingAddress({ ...billingAddress, city: e.target.value })
+                                    setBillingAddress({ ...billingAddress, zipCode: e.target.value })
                                 }
                                 className="w-full mb-2 p-2 border rounded"
                             />
                             <input
                                 type="text"
-                                placeholder="Code postal"
-                                value={billingAddress.zipCode}
+                                placeholder="Ville"
+                                value={billingAddress.city}
                                 onChange={(e) =>
-                                    setBillingAddress({ ...billingAddress, zipCode: e.target.value })
+                                    setBillingAddress({ ...billingAddress, city: e.target.value })
                                 }
                                 className="w-full mb-2 p-2 border rounded"
                             />
@@ -263,19 +264,19 @@ export default function CommandPageMainComponent() {
                                     />
                                     <input
                                         type="text"
-                                        placeholder="Ville"
-                                        value={shippingAddress.city}
+                                        placeholder="Code postal"
+                                        value={shippingAddress.zipCode}
                                         onChange={(e) =>
-                                            setShippingAddress({ ...shippingAddress, city: e.target.value })
+                                            setShippingAddress({ ...shippingAddress, zipCode: e.target.value })
                                         }
                                         className="w-full mb-2 p-2 border rounded"
                                     />
                                     <input
                                         type="text"
-                                        placeholder="Code postal"
-                                        value={shippingAddress.zipCode}
+                                        placeholder="Ville"
+                                        value={shippingAddress.city}
                                         onChange={(e) =>
-                                            setShippingAddress({ ...shippingAddress, zipCode: e.target.value })
+                                            setShippingAddress({ ...shippingAddress, city: e.target.value })
                                         }
                                         className="w-full mb-2 p-2 border rounded"
                                     />
@@ -287,7 +288,6 @@ export default function CommandPageMainComponent() {
             </div>
 
             <div className="flex flex-col bg-white mb-12">
-                {/* ... (ton JSX inchangé, avec inputs pour nom/email) */}
                 <Button onClick={handleConfirmOrder} disabled={!isFormValid} className="mx-auto">
                     Confirmer la commande
                 </Button>
