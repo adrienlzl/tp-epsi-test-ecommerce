@@ -1,17 +1,14 @@
 import type { NextRequest } from 'next/server'
 
-// URL de ton JSON-Server (fallback si la var d’env n’est pas définie)
 const API_URL = process.env.JSON_SERVER_URL || 'http://localhost:3001';
 
 export async function GET(
     req: NextRequest,
     context: { params: Promise<{ productId: string }> }
 ) {
-    // 1. await context.params
     const { productId } = await context.params;
 
     try {
-        // 2. Appel vers ton JSON-Server
         const apiRes = await fetch(`${API_URL}/products/${productId}`);
         if (apiRes.status === 404) {
             return new Response(
@@ -36,4 +33,27 @@ export async function GET(
             { status: 502, headers: { 'Content-Type': 'application/json' } }
         );
     }
+}
+export async function PATCH(
+    req: Request,
+    { params }: { params: { productId: string } }
+) {
+    const { productId } = params;
+    const { stockDelta } = await req.json();
+
+    const getRes = await fetch(`${API_URL}/products/${productId}`);
+    const prod = await getRes.json();
+    const updated = { ...prod, stock: prod.stock + stockDelta };
+
+    const upstream = await fetch(`${API_URL}/products/${productId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+    });
+    const data = await upstream.json();
+
+    return new Response(JSON.stringify(data), {
+        status: upstream.status,
+        headers: { "Content-Type": "application/json" },
+    });
 }
