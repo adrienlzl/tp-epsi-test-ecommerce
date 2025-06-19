@@ -1,0 +1,330 @@
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "__myFont_bcb3ec", "__myFont_Fallback_bcb3ec";
+}
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.ImageInverse {
+    transform: rotatey(180deg);
+}
+
+.bg-tendre-black {
+    background-color: rgb(26, 18, 11)
+}
+.tendre-black {
+    color: rgb(26, 18, 11);
+}
+.bg-tendre-beige {
+    background-color: #e7cfb1;
+}
+.tendre-beige {
+    color: #e7cfb1;
+}
+.bg-tendre-beige-hover:hover {
+    background-color: #e7cfb1;
+}
+.bg-tendre-white {
+    background-color: rgb(229, 229, 203);
+}
+.tendre-white {
+    color: rgb(229, 229, 203);
+}
+.tendre-white-hover:hover {
+    color: rgb(229, 229, 203);
+}
+.bg-tendre-white-hover:hover {
+    background-color: rgb(229, 229, 203);
+}
+.bg-tendre-brown {
+    background-color: rgb(60, 42, 33);
+}
+.tendre-brown {
+    color: rgb(60, 42, 33);
+}
+.product-name {
+    color:  rgb(26, 18, 11);
+}
+.product-name:hover {
+    color: #e7cfb1;
+}
+.header-title {
+    color: #e7cfb1;
+}
+.header-title:hover {
+    color: rgb(26, 18, 11);
+    background-color: rgb(229, 229, 203);
+}
+.header-title-selected {
+    color: rgb(26, 18, 11);
+    background-color: rgb(229, 229, 203);
+}
+.header-title-selected:hover {
+    background-color: #e7cfb1;
+}
+.social-media-icon{
+    color: white;
+}
+.social-media-icon:hover{
+    color: rgb(26, 18, 11);
+    background-color: rgb(229, 229, 203);
+}
+.made {
+    color: #e7cfb1;
+}
+.made:hover {
+    color: white;
+}
+
+.white-button {
+    display: inline-block;
+    border-width: 1px;
+    border-color:  white;
+    color:  rgb(26, 18, 11);
+    background-color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 18px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.login-button{
+    display: inline-block;
+    border-width: 1px;
+    border-color: rgb(26, 18, 11);
+    color:  white;
+    background-color: rgb(26, 18, 11);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 18px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.login-button:hover {
+    color: rgb(26, 18, 11);
+    background-color:  #e7cfb1;
+    border-color:  rgb(26, 18, 11);
+}
+.white-button:hover,
+.brown-button:hover {
+    color: white;
+    background-color: transparent;
+}
+.shop-button {
+    border-width: 1px;
+    border-color:  white;
+    color:  white;
+    background-color: rgb(26, 18, 11);
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.shop-button:hover {
+    color: rgb(26, 18, 11);
+    background-color:  #e7cfb1;
+    border-color:  rgb(26, 18, 11);
+}
+.black-button {
+    border-width: 1px;
+    border-color:  rgb(26, 18, 11);
+    color:  rgb(26, 18, 11);
+    background-color: white;
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.black-button.selected {
+    color: #e7cfb1;
+    background-color: rgb(26, 18, 11);
+}
+.dark-button {
+    border-width: 1px;
+    border-color:  rgb(26, 18, 11);
+    color:  rgb(26, 18, 11);
+    background-color: rgb(229, 229, 203);
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.black-button:hover,
+.dark-button:hover{
+    color: #e7cfb1;
+    background-color: rgb(26, 18, 11);
+}
+.register-button {
+    border-width: 1px;
+    border-color:  white;
+    color:  white;
+    background-color: rgb(26, 18, 11);
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    white-space: pre-wrap;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+.register-button:hover {
+    color: rgb(26, 18, 11);
+    background-color:  #e7cfb1;
+    border-color:  rgb(26, 18, 11);
+}
+
+.pagination {
+    margin: 0 auto 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+.pageLink {
+    cursor: pointer;
+    padding: 20px;
+}
+.pageItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    color: rgb(26, 18, 11);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 20px;
+}
+.pagination-button {
+    color: rgb(60, 42, 33);;
+}
+
+
+.pageItem:hover,
+.pageItemActive:hover,
+.pagination-button:hover
+{
+    color: #e7cfb1;
+
+}
+.pageItemActive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    background-color: rgb(60, 42, 33);
+    padding: 20px;
+    color: rgb(229, 229, 203);
+}
+
+.checked-input:checked {
+    background-color: rgb(60, 42, 33);
+}
+
+.brightness-75 {
+    filter: brightness(0.75);
+}
+.text-shadow {
+    text-shadow: 0 1px black;
+}
+.sticky-element {
+    /*position: -webkit-sticky; !* Safari *!*/
+    position: sticky;
+    top: 100px;
+}
+.smooth {
+    transition-property: opacity, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+.bounce-in-left {
+    background-color: transparent;
+    animation: bounceInLeft 0.8s ease;
+}
+@keyframes bounceInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.border-input {
+    border: 1px solid rgb(26, 18, 11);
+    border-radius: 5px;
+}
+
+@media (min-width: 1440px) {
+    .thomas-working {
+        bottom: 28rem;
+        right: -23rem;
+    }
+}
+@media (min-width: 2000px) {
+    .thomas-working {
+        bottom: 36rem;
+        right: -30rem;
+    }
+}
+@media (min-width: 2000px) {
+    .img-billard-home {
+        width: 32%;
+
+    }
+}
