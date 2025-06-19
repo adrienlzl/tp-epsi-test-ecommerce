@@ -5,6 +5,7 @@ import type { OrderInformation } from "@/lib/utils/order-information";
 import type { Carrier } from "@/lib/interfaces/interface";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function ConfirmationLivraisonMainComponent() {
     const [orderInfo, setOrderInfo] = useState<OrderInformation | null>(null);
@@ -21,6 +22,7 @@ export default function ConfirmationLivraisonMainComponent() {
     ];
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
 
+    const router = useRouter();
     // 1. Récupération de OrderInformation et calcul du poids
     useEffect(() => {
         const stored = localStorage.getItem("orderInformation");
@@ -50,14 +52,72 @@ export default function ConfirmationLivraisonMainComponent() {
         );
     }, [carriers, totalWeightKg]);
 
-    // Handler temporaire du bouton
-    const handlePasserCommande = () => {
-        // TODO: implémenter la logique de confirmation
-        console.log("Passer commande avec:", {
-            orderInfo,
-            selectedCarrierId,
-            selectedPaymentMethod,
-        });
+
+
+    const handlePushCommand = async () => {
+        if (!orderInfo) return;
+
+        try {
+            const { customer, addresses, order, orderItems } = orderInfo;
+
+
+            const custRes = await fetch(`/api/customers`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(customer),
+            });
+            if (!custRes.ok) throw new Error("Échec création customer");
+            const createdCustomer = await custRes.json();
+
+            await Promise.all(
+                addresses.map((addr) =>
+                    fetch("/api/addresses", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ...addr, userId: createdCustomer.id }),
+                    })
+                )
+            );
+
+            const orderPayload = {
+                ...order,
+                customerId: createdCustomer.id,
+                carrierId: selectedCarrierId,
+                paymentId: selectedPaymentMethod,
+            };
+            const orderRes = await fetch("/api/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(orderPayload),
+            });
+            if (!orderRes.ok) throw new Error("Échec création order");
+            const createdOrder = await orderRes.json();
+
+            await Promise.all(
+                orderItems.map((oi) =>
+                    fetch("/api/order-items", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ...oi, orderId: createdOrder.id }),
+                    })
+                )
+            );
+
+            await Promise.all(
+                orderItems.map((oi) =>
+                    fetch(`/api/products/${oi.productId}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ stockDelta: -oi.quantity }),
+                    })
+                )
+            );
+
+            router.push("/fin-commande");
+        } catch (err) {
+            console.error("handlePushCommand:", err);
+            // TODO: afficher un toast ou un message d'erreur à l'utilisateur
+        }
     };
 
     if (!orderInfo) return <p>Chargement des informations...</p>;
@@ -124,7 +184,7 @@ export default function ConfirmationLivraisonMainComponent() {
             {/* Bouton final */}
             <div className="flex justify-center">
                 <Button
-                    onClick={handlePasserCommande}
+                    onClick={handlePushCommand}
                     disabled={!selectedCarrierId || !selectedPaymentMethod}
                     className="mt-8 cursor-pointer disabled:cursor-not-allowed"
                 >
