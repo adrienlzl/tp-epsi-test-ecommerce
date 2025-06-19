@@ -44,7 +44,7 @@
       <recent name="C:\Users\Zuhan\Desktop\projet perso\TP-test-site-e-commerce\tp-ecommerce-jsonserver\public" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.server">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -67,8 +67,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.server" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.server" />
       </list>
     </recent_temporary>
   </component>
