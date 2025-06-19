@@ -88,12 +88,66 @@ export interface Product {
     price: number
     /** Devise (ISO 4217) */
     currency: string
-    /** Quantité en stock */
     stock: number
     /** Catégorie / type (ex. "t-shirt", "pantalon") */
     category: string
     /** Poids en grammes */
     weight: number
-    /** URLs des images du produit */
     images: string[]
+}
+
+export interface Carrier {
+    /** Identifiant unique du transporteur */
+    id: string;
+    /** Nom affiché du transporteur */
+    name: string;
+    /** Type de service (ex : Livraison express, Fret international…) */
+    service_type: string;
+    /** Zone desservie (Local, National, International…) */
+    area_served: string;
+    /** Note moyenne (échelle 0–5) */
+    average_rating: number;
+    /** Poids max accepté en kg */
+    "max-weight": number;
+    /** Email de contact */
+    contact_email: string;
+    /** Numéro de téléphone */
+    phone: string;
+    /** Modèle d’URL pour le suivi (placeholder : {tracking_number}) */
+    tracking_url_template: string;
+    /** Liste de fonctionnalités proposées */
+    features: string[];
+}
+
+/**
+ * Méthodes de paiement disponibles.
+ */
+export type PaymentMethod =
+    | "Carte Bancaire"
+    | "PayPal"
+    | "Virement Bancaire"
+    | "Apple Pay";
+
+/**
+ * Représente un paiement.
+ */
+export interface Payment {
+    /** Identifiant unique du paiement */
+    id: string;
+    /** UUID de la commande associée */
+    order_id: string;
+    /** UUID du client (optionnel si non renseigné) */
+    customer_id?: string;
+    /** Devise (ISO 4217) */
+    currency: string;
+    /** Méthode utilisée */
+    method: PaymentMethod;
+    /** Statut du paiement (ex : completed, pending…) */
+    status: string;
+    /** Date/heure de la transaction (ISO 8601) */
+    transaction_date: string;
+    /** Réponse du processeur de paiement */
+    processor_response: string;
+    /** Notes complémentaires */
+    notes: string;
 }
