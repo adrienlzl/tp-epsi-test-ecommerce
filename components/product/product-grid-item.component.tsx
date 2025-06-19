@@ -23,11 +23,6 @@ export default function ProductGridItems({ products }: ProductGridItemsProps) {
     const startIndex = (currentPage - 1) * pageSize
     const visibleProducts = products.slice(startIndex, startIndex + pageSize)
 
-    const breadcrumbLinks = [
-        { label: 'Accueil', url: '/' },
-        { label: 'Boutique', url: '/boutique' },
-    ]
-
     if (visibleProducts.length === 0) {
         return (
             <div className="h-full w-full flex flex-col items-center justify-center">
@@ -58,6 +53,7 @@ export default function ProductGridItems({ products }: ProductGridItemsProps) {
                                 />
                             </div>
                             <p className="text-center pt-4 text-xl font-semibold">{product.name}</p>
+                            <p className="text-center pt-1 text-s">{product.description_short}</p>
                             <p className="text-center pt-2 text-lg">
                                 {product.price.toLocaleString('fr-FR', {
                                     style: 'currency',
