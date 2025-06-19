@@ -138,6 +138,15 @@ export default function CommandPageMainComponent() {
 
     return (
         <div className="flex flex-col bg-white mb-12">
+            <Button
+                variant="ghost"
+                onClick={() => router.push('/')}
+                className="w-fit ml-4 mt-6 text-sm text-gray-600 hover:text-black cursor-pointer"
+            >
+                ← Retour à la boutique
+            </Button>
+
+
             <div className="flex mx-auto my-20 items-center">
                 <p className="tendre-black font-bold text-xl mx-4">
                     Finaliser votre commande en ligne
