@@ -20,6 +20,7 @@ import {OderColumns} from "@/app/commande/components/order-colums.component";
 import {useOrderStore} from "@/app/commande/components/order.stores";
 import {useUserStore} from "@/app/commande/components/user-store";
 import {useRouter} from "next/navigation";
+import {buildOrderInformation, saveOrderInformation} from "@/lib/utils/order-information";
 
 
 const DEFAULT_CARRIER_ID = "carrier-uuid-par-defaut";
@@ -29,12 +30,10 @@ export default function CommandPageMainComponent() {
     const router = useRouter();
     const { items, clearCart } = useCartStore();
     const totalPrice = items.reduce((t, i) => t + i.price * i.quantity, 0);
-
     const [customerId] = useState<string>(uuidv4());
     const [orderId] = useState<string>(uuidv4());
     const [customerName, setCustomerName] = useState<string>("");
     const [customerEmail, setCustomerEmail] = useState<string>("");
-
     const [billingAddress, setBillingAddress] = useState<Address>({
         id: uuidv4(),
         street: "",
@@ -54,10 +53,6 @@ export default function CommandPageMainComponent() {
         addressType: "shipping",
         userId: customerId,
     });
-
-    const setCustomer = useUserStore((s) => s.setCustomer);
-    const setOrder = useOrderStore((s) => s.setOrder);
-
     // Validation métier
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
@@ -85,7 +80,6 @@ export default function CommandPageMainComponent() {
 
     const handleConfirmOrder = () => {
         try {
-            // 1. On bloque l’exécution si le form n’est pas validé ou si le panier est vide
             if (!isFormValid) {
                 console.warn("Formulaire invalide, impossible de finaliser.");
                 return;
@@ -94,12 +88,10 @@ export default function CommandPageMainComponent() {
                 throw new Error("Le panier est vide.");
             }
 
-            // 2. On détermine l'adresse de livraison finale
             const finalShipping: Address = useSameAddress
                 ? { ...billingAddress, addressType: "shipping" as const }
                 : shippingAddress;
 
-            // 3. On construit l'objet Order
             const order: Order = {
                 id: orderId,
                 orderDate: new Date().toISOString(),
@@ -112,7 +104,6 @@ export default function CommandPageMainComponent() {
                 orderTotal: Math.round(totalPrice),
             };
 
-            // 4. On construit les OrderItem
             const orderItems: OrderItem[] = items.map((item) => ({
                 id: uuidv4(),
                 orderId,
@@ -122,7 +113,6 @@ export default function CommandPageMainComponent() {
                 totalPrice: item.price * item.quantity,
             }));
 
-            // 5. On construit l'objet Customer
             const customer: Customer = {
                 id: customerId,
                 name: customerName.trim(),
@@ -130,19 +120,16 @@ export default function CommandPageMainComponent() {
                 defaultBillingAddressId: billingAddress.id,
                 defaultShippingAddressId: finalShipping.id,
             };
+            const orderInfo = buildOrderInformation(
+                customer,
+                order,
+                [billingAddress, finalShipping],
+                orderItems,
+                items
+            );
+            saveOrderInformation(orderInfo);
 
-            // 6. On enregistre dans les stores Zustand
-            setCustomer(customer);
-            setOrder(order);
 
-            // 7. On enregistre dans le localStorage
-            localStorage.setItem("customer", JSON.stringify(customer));
-            localStorage.setItem("order", JSON.stringify(order));
-
-            // 8. On vide le panier
-            // cclearCart();
-
-            // 9. On redirige vers la page de confirmation
             router.push("/confirmation-livraison");
         } catch (error) {
             console.error("handleConfirmOrder :", error);
