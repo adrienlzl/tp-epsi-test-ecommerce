@@ -66,7 +66,7 @@ export const OderColumns: ColumnDef<CartItem>[] = [
             const name = row.getValue<string>("name");
             const slugName = name.toLowerCase().replace(/%/g, "percent");
             return (
-                <Link href={`/boutique/produit/${slugName}-${id}`} className="hover:underline">
+                <Link href={`/product/${id}`} className="hover:underline">
                     {productImage && (
                         <Image
                             src={'/zoomLiquid.jpg'}

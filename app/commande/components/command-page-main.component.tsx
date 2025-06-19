@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -11,29 +11,30 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCartStore } from "@/components/cart/cart-store";
-import {Address, Order, OrderItem} from "@/lib/interfaces/interface";
+import {Address, Customer, Order, OrderItem} from "@/lib/interfaces/interface";
 import {DataTable} from "@/app/commande/components/simple-data-table.component";
 import {OderColumns} from "@/app/commande/components/order-colums.component";
-
+import {useOrderStore} from "@/app/commande/components/order.stores";
+import {useUserStore} from "@/app/commande/components/user-store";
+import {useRouter} from "next/navigation";
 
 
 const DEFAULT_CARRIER_ID = "carrier-uuid-par-defaut";
 const DEFAULT_PAYMENT_ID = "payment-uuid-par-defaut";
 
 export default function CommandPageMainComponent() {
+    const router = useRouter();
     const { items, clearCart } = useCartStore();
     const totalPrice = items.reduce((t, i) => t + i.price * i.quantity, 0);
 
-    // Génération d'un customerId et d'un orderId
     const [customerId] = useState<string>(uuidv4());
     const [orderId] = useState<string>(uuidv4());
+    const [customerName, setCustomerName] = useState<string>("");
+    const [customerEmail, setCustomerEmail] = useState<string>("");
 
-    // États pour les adresses
     const [billingAddress, setBillingAddress] = useState<Address>({
         id: uuidv4(),
         street: "",
@@ -54,18 +55,51 @@ export default function CommandPageMainComponent() {
         userId: customerId,
     });
 
-    const handleConfirmOrder = async () => {
+    const setCustomer = useUserStore((s) => s.setCustomer);
+    const setOrder = useOrderStore((s) => s.setOrder);
+
+    // Validation métier
+    const [validName, setValidName] = useState(false);
+    const [validEmail, setValidEmail] = useState(false);
+    const [validStreet, setValidStreet] = useState(false);
+    const [validCity, setValidCity] = useState(false);
+    const [validZip, setValidZip] = useState(false);
+    const isFormValid = validName && validEmail && validStreet && validCity && validZip;
+
+    useEffect(() => {
+        const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ]{3,}$/u;
+        setValidName(nameRe.test(customerName.trim()));
+
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setValidEmail(emailRe.test(customerEmail));
+
+        const streetRe = /^[A-Za-z0-9\s]{3,}$/;
+        setValidStreet(streetRe.test(billingAddress.street.trim()));
+
+        const cityRe = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/u;
+        setValidCity(cityRe.test(billingAddress.city.trim()));
+
+        const zipRe = /^\d{5}$/;
+        setValidZip(zipRe.test(billingAddress.zipCode));
+    }, [customerName, customerEmail, billingAddress]);
+
+    const handleConfirmOrder = () => {
         try {
+            // 1. On bloque l’exécution si le form n’est pas validé ou si le panier est vide
+            if (!isFormValid) {
+                console.warn("Formulaire invalide, impossible de finaliser.");
+                return;
+            }
             if (items.length === 0) {
                 throw new Error("Le panier est vide.");
             }
 
-            // Si même adresse, on duplique les infos
-            const finalShipping = useSameAddress
-                ? { ...billingAddress, id: billingAddress.id, addressType: "shipping" as const }
+            // 2. On détermine l'adresse de livraison finale
+            const finalShipping: Address = useSameAddress
+                ? { ...billingAddress, addressType: "shipping" as const }
                 : shippingAddress;
 
-            // Construction de l'objet Order
+            // 3. On construit l'objet Order
             const order: Order = {
                 id: orderId,
                 orderDate: new Date().toISOString(),
@@ -78,7 +112,7 @@ export default function CommandPageMainComponent() {
                 orderTotal: Math.round(totalPrice),
             };
 
-            // Construction des OrderItem
+            // 4. On construit les OrderItem
             const orderItems: OrderItem[] = items.map((item) => ({
                 id: uuidv4(),
                 orderId,
@@ -88,24 +122,34 @@ export default function CommandPageMainComponent() {
                 totalPrice: item.price * item.quantity,
             }));
 
-            // Envoi au nouvel endpoint
-            const payload = { order, addresses: [billingAddress, finalShipping], items: orderItems };
-            const response = await fetch("/api/orders", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-            if (!response.ok) {
-                throw new Error("Erreur lors de la création de la commande");
-            }
+            // 5. On construit l'objet Customer
+            const customer: Customer = {
+                id: customerId,
+                name: customerName.trim(),
+                email: customerEmail.trim(),
+                defaultBillingAddressId: billingAddress.id,
+                defaultShippingAddressId: finalShipping.id,
+            };
 
-            clearCart();
-            // router.push('/commande/confirmation-client');
+            // 6. On enregistre dans les stores Zustand
+            setCustomer(customer);
+            setOrder(order);
+
+            // 7. On enregistre dans le localStorage
+            localStorage.setItem("customer", JSON.stringify(customer));
+            localStorage.setItem("order", JSON.stringify(order));
+
+            // 8. On vide le panier
+            // cclearCart();
+
+            // 9. On redirige vers la page de confirmation
+            router.push("/confirmation-livraison");
         } catch (error) {
-            console.error(error);
-            // Ici, vous pouvez afficher un message d'erreur ou un composant dédié
+            console.error("handleConfirmOrder :", error);
+            // TODO : afficher un toast ou un message d'erreur plus convivial
         }
     };
+
 
     return (
         <div className="flex flex-col bg-white mb-12">
@@ -151,6 +195,23 @@ export default function CommandPageMainComponent() {
                         <div className="flex justify-between">
                             <p>Total :</p>
                             <p className="font-bold">{totalPrice.toFixed(2)} €</p>
+                        </div>
+                        <div className="mt-4">
+                            <h3 className="font-bold mb-2">Vos coordonnées</h3>
+                            <input
+                                type="text"
+                                placeholder="Nom complet"
+                                value={customerName}
+                                onChange={e => setCustomerName(e.target.value)}
+                                className="w-full mb-2 p-2 border rounded"
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={customerEmail}
+                                onChange={e => setCustomerEmail(e.target.value)}
+                                className="w-full mb-2 p-2 border rounded"
+                            />
                         </div>
                         {/* Formulaire d'adresse */}
                         <div className="mt-4">
@@ -231,8 +292,9 @@ export default function CommandPageMainComponent() {
                 </Card>
             </div>
 
-            <div className="flex justify-center my-10">
-                <Button onClick={handleConfirmOrder} className="mx-auto">
+            <div className="flex flex-col bg-white mb-12">
+                {/* ... (ton JSX inchangé, avec inputs pour nom/email) */}
+                <Button onClick={handleConfirmOrder} disabled={!isFormValid} className="mx-auto">
                     Confirmer la commande
                 </Button>
             </div>
