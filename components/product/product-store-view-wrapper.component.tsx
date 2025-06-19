@@ -14,7 +14,7 @@ interface StoreViewWrapperProps {
 
 export default function StoreViewWrapper({ products }: StoreViewWrapperProps) {
     return (
-        <div className="mx-12 lg:mt-[50px] lg:mx-[50px] lg:pb-[50px]">
+        <div className="mx-12 mt-8 lg:mt-[50px] lg:mx-[50px] lg:pb-[50px]">
         <Suspense fallback={<LoadingComponent />}>
     <ProductGridItems products={products} />
     </Suspense>

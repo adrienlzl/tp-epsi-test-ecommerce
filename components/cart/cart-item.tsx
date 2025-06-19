@@ -71,7 +71,7 @@ export function CartItem({ item, onUpdateQuantity }: CartItemProps) {
                 )}
                 <div className="ml-4">
                     <h3 className="font-medium text-lg">{item.name}</h3>
-                    <p className="text-sm">{item.price.toFixed(2)} €</p>
+                    <p className="text-sm">{(item.price * item.quantity).toFixed(2)} €</p>
                     {availableStock !== undefined && (
                         <p className="text-xs text-gray-400">
                             {availableStock} unité(s) en stock
