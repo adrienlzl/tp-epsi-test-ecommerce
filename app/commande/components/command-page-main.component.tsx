@@ -17,8 +17,6 @@ import { useCartStore } from "@/components/cart/cart-store";
 import {Address, Customer, Order, OrderItem} from "@/lib/interfaces/interface";
 import {DataTable} from "@/app/commande/components/simple-data-table.component";
 import {OderColumns} from "@/app/commande/components/order-colums.component";
-import {useOrderStore} from "@/app/commande/components/order.stores";
-import {useUserStore} from "@/app/commande/components/user-store";
 import {useRouter} from "next/navigation";
 import {buildOrderInformation, saveOrderInformation} from "@/lib/utils/order-information";
 
