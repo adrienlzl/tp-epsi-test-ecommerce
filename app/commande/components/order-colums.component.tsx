@@ -56,7 +56,7 @@ const DeleteItemCell = ({ row }: { row: Row<CartItem> }) => {
 };
 
 // Définition des colonnes pour la DataTable
-export const OderColumns: ColumnDef<CartItem>[] = [
+export const OrderColumns: ColumnDef<CartItem>[] = [
     {
         accessorKey: "image",
         header: "",

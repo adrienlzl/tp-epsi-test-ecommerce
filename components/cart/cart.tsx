@@ -15,11 +15,6 @@ export function Cart() {
         return items.reduce((total, item) => total + item.price * item.quantity, 0);
     };
 
-    const handleCheckout = async () => {
-        // Implement checkout logic here
-        console.log('Proceeding to checkout with items:', items);
-    };
-
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
@@ -42,7 +37,9 @@ export function Cart() {
                                     onUpdateQuantity={updateQuantity}
                                 />
                             ))}
-                            <CartSummary total={getTotal()} onCheckout={handleCheckout}/>
+                            <CartSummary
+                                total={getTotal()}
+                                onClose={() => setIsOpen(false)} />
                         </>
                     )}
                 </div>

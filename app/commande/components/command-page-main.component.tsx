@@ -16,9 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCartStore } from "@/components/cart/cart-store";
 import {Address, Customer, Order, OrderItem} from "@/lib/interfaces/interface";
 import {DataTable} from "@/app/commande/components/simple-data-table.component";
-import {OderColumns} from "@/app/commande/components/order-colums.component";
-import {useOrderStore} from "@/app/commande/components/order.stores";
-import {useUserStore} from "@/app/commande/components/user-store";
+import {OrderColumns} from "@/app/commande/components/order-colums.component";
 import {useRouter} from "next/navigation";
 import {buildOrderInformation, saveOrderInformation} from "@/lib/utils/order-information";
 
@@ -28,7 +26,7 @@ const DEFAULT_PAYMENT_ID = "payment-uuid-par-defaut";
 
 export default function CommandPageMainComponent() {
     const router = useRouter();
-    const { items, clearCart } = useCartStore();
+    const { items } = useCartStore();
     const totalPrice = items.reduce((t, i) => t + i.price * i.quantity, 0);
     const [customerId] = useState<string>(uuidv4());
     const [orderId] = useState<string>(uuidv4());
@@ -163,7 +161,7 @@ export default function CommandPageMainComponent() {
             <div className="flex flex-col lg:flex-row gap-10 mx-auto w-[70%]">
                 <div>
                     <DataTable
-                        columns={OderColumns}
+                        columns={OrderColumns}
                         data={items.map((item) => ({
                             id: item.id,
                             name: item.name,
