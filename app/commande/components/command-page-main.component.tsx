@@ -76,6 +76,50 @@ export default function CommandPageMainComponent() {
         setValidZip(zipRe.test(billingAddress.zipCode));
     }, [customerName, customerEmail, billingAddress]);
 
+    useEffect(() => {
+        const rawAddresseInfo = localStorage.getItem("orderInformation");
+        if(!rawAddresseInfo) return;
+
+        try {
+            const addresseInfo = JSON.parse(rawAddresseInfo);
+            const {customer, addresses} = addresseInfo
+
+            if(customer) {
+                setCustomerName(customer.name || "");
+                setCustomerEmail(customer.email || "");
+            }
+
+            const billing = addresses?.find((addr: Address) => addr.addressType === "billing");
+            const shipping = addresses?.find((addr: Address) => addr.addressType === "shipping");
+
+            if(billing) {
+                setBillingAddress({
+                    ...billing,
+                    userId: customer?.id || customerId
+                })
+            }
+
+            if(shipping && billing) {
+                const isSame =
+                    shipping.street === billing.street &&
+                    shipping.zipCode === billing.zipCode &&
+                    shipping.city === billing.city
+
+                setUseSameAddress(isSame);
+
+                if (!isSame) {
+                    setShippingAddress({
+                        ...shipping,
+                        userId: customer?.id || customerId
+                    })
+                }
+            }
+        }
+        catch(error) {
+            console.warn("Erreur lors du parsing des informations de formulaire :", error);
+        }
+    }, [customerId]);
+
     const handleConfirmOrder = () => {
         try {
             if (!isFormValid) {
