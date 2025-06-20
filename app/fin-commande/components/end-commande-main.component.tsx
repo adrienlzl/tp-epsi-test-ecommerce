@@ -17,7 +17,7 @@ export default function EndCommandeMainComponent() {
 
     useEffect(() => {
         localStorage.removeItem("cart-storage");
-        localStorage.removeItem("order-information");
+        localStorage.removeItem("orderInformation");
 
         const intervalId = setInterval(() => {
             setCountdown((prev) => prev - 1);
