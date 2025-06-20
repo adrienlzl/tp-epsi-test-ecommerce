@@ -35,25 +35,39 @@ export async function GET(
     }
 }
 export async function PATCH(
-    req: Request,
-    { params }: { params: { productId: string } }
+    req: NextRequest,
+    context: { params: Promise<{ productId: string }> }
 ) {
-    const { productId } = params;
+    // 1. On attend que params soit résolu
+    const { productId } = await context.params;
     const { stockDelta } = await req.json();
 
+    // 2. On appelle ton API externe pour récupérer l’état actuel du produit
     const getRes = await fetch(`${API_URL}/products/${productId}`);
-    const prod = await getRes.json();
-    const updated = { ...prod, stock: prod.stock + stockDelta };
+    if (!getRes.ok) {
+        return new Response(
+            JSON.stringify({ erreur: "Impossible de récupérer le produit" }),
+            { status: getRes.status, headers: { "Content-Type": "application/json" } }
+        );
+    }
+    const product = await getRes.json();
 
-    const upstream = await fetch(`${API_URL}/products/${productId}`, {
-        method: "PUT",
+    // 3. On met à jour le stock
+    const newStock = (product.stock ?? 0) + stockDelta;
+    const updateRes = await fetch(`${API_URL}/products/${productId}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
+        body: JSON.stringify({ stock: newStock }),
     });
-    const data = await upstream.json();
+    if (!updateRes.ok) {
+        return new Response(
+            JSON.stringify({ erreur: "Erreur lors de la mise à jour du stock" }),
+            { status: updateRes.status, headers: { "Content-Type": "application/json" } }
+        );
+    }
 
-    return new Response(JSON.stringify(data), {
-        status: upstream.status,
+    return new Response(JSON.stringify({ success: true }), {
+        status: 200,
         headers: { "Content-Type": "application/json" },
     });
 }

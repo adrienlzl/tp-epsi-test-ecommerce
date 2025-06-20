@@ -109,6 +109,8 @@ export interface Carrier {
     average_rating: number;
     /** Poids max accepté en kg */
     "max-weight": number;
+
+    "price":number
     /** Email de contact */
     contact_email: string;
     /** Numéro de téléphone */

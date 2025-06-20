@@ -16,9 +16,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCartStore } from "@/components/cart/cart-store";
 import {Address, Customer, Order, OrderItem} from "@/lib/interfaces/interface";
 import {DataTable} from "@/app/commande/components/simple-data-table.component";
-import {OrderColumns} from "@/app/commande/components/order-colums.component";
+
 import {useRouter} from "next/navigation";
 import {buildOrderInformation, saveOrderInformation} from "@/lib/utils/order-information";
+import {CartItem} from "@/lib/interfaces/cart.interface";
+import {OrderColumns} from "@/app/commande/components/order-colums.component";
 
 
 const DEFAULT_CARRIER_ID = "carrier-uuid-par-defaut";
@@ -57,7 +59,9 @@ export default function CommandPageMainComponent() {
     const [validStreet, setValidStreet] = useState(false);
     const [validCity, setValidCity] = useState(false);
     const [validZip, setValidZip] = useState(false);
+    const [stocks, setStocks] = useState<Record<string, number>>({});
     const isFormValid = validName && validEmail && validStreet && validCity && validZip;
+
 
     useEffect(() => {
         const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ]{3,}$/u;
@@ -75,6 +79,35 @@ export default function CommandPageMainComponent() {
         const zipRe = /^\d{5}$/;
         setValidZip(zipRe.test(billingAddress.zipCode));
     }, [customerName, customerEmail, billingAddress]);
+
+    useEffect(() => {
+        if (items.length === 0) {
+            setStocks({});
+            return;
+        }
+        async function fetchStocks() {
+            const map: Record<string, number> = {};
+            await Promise.all(
+                items.map(async (item) => {
+                    try {
+                        const res = await fetch(`/api/product/${item.id}`);
+                        if (res.ok) {
+                            const product = await res.json();
+                            map[item.id] = product.stock ?? 0;
+                        } else {
+                            map[item.id] = 0;
+                        }
+                    } catch {
+                        map[item.id] = 0;
+                    }
+                })
+            );
+            setStocks(map);
+        }
+        fetchStocks();
+    }, [items]);
+
+    const data: CartItem[] = items;
 
     const handleConfirmOrder = () => {
         try {
@@ -172,14 +205,7 @@ export default function CommandPageMainComponent() {
                 <div>
                     <DataTable
                         columns={OrderColumns}
-                        data={items.map((item) => ({
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                            quantity: item.quantity,
-                            image: item.image || "",
-                            variation: item.variation,
-                        }))}
+                        data={data}
                     />
                 </div>
                 <Card className="w-[30%]">
@@ -287,7 +313,7 @@ export default function CommandPageMainComponent() {
                 </Card>
             </div>
 
-            <div className="flex flex-col bg-white mb-12">
+            <div className="flex flex-col bg-white mb-12 mt-10">
                 <Button onClick={handleConfirmOrder} disabled={!isFormValid} className="mx-auto">
                     Confirmer la commande
                 </Button>

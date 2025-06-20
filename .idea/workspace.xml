@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6f4a9a0-3231-4086-805a-b9ec5b07bf9a" name="Changes" comment="en cours de realse">
-      <change afterPath="$PROJECT_DIR$/app/fin-commande/components/end-commande-main.component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/fin-commande/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/store/order-stores.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/BDD/db.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/addresses/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/addresses/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/customers/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/customers/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/order-items/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/order-items/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/orders/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/orders/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BDD/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/BDD/db.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/products/[productId]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/products/[productId]/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/commande/components/command-page-main.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/commande/components/command-page-main.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/commande/components/order-colums.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/commande/components/order-colums.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/confirmation-livraison/components/confirmation-livraison-main.components.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/confirmation-livraison/components/confirmation-livraison-main.components.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/interfaces/interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/interfaces/interface.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;adrienlzl&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/adrienlzl/tp-epsi-test-ecommerce.git&quot;,
+    &quot;accountId&quot;: &quot;417c8962-7574-463c-8eaf-64e9ec5c995d&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -39,22 +45,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "C:/Users/Zuhan/Desktop/projet perso/TP-test-site-e-commerce/tp-ecommerce-jsonserver/public",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "C:\\Users\\Zuhan\\Desktop\\projet perso\\TP-test-site-e-commerce\\tp-ecommerce-jsonserver\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/adrien&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ZuhanFuuPc/Desktop/Projet perso/tp-epsi-test-ecommerce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.server.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\ZuhanFuuPc\\Desktop\\Projet perso\\tp-epsi-test-ecommerce\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Zuhan\Desktop\projet perso\TP-test-site-e-commerce\tp-ecommerce-jsonserver\public" />
@@ -64,7 +72,7 @@
       <recent name="C:\Users\Zuhan\Desktop\projet perso\TP-test-site-e-commerce\tp-ecommerce-jsonserver\lib\queries" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.server">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -87,10 +95,17 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
         <item itemvalue="npm.server" />
+        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -106,6 +121,8 @@
       <workItem from="1750158108336" duration="7556000" />
       <workItem from="1750313422758" duration="1032000" />
       <workItem from="1750331239003" duration="7775000" />
+      <workItem from="1750412641051" duration="5172000" />
+      <workItem from="1750425801302" duration="3865000" />
     </task>
     <task id="LOCAL-00001" summary="bug pour les products">
       <option name="closed" value="true" />

@@ -6,6 +6,7 @@ import type { Carrier } from "@/lib/interfaces/interface";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ConfirmationLivraisonMainComponent() {
     const [orderInfo, setOrderInfo] = useState<OrderInformation | null>(null);
@@ -23,6 +24,7 @@ export default function ConfirmationLivraisonMainComponent() {
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
 
     const router = useRouter();
+
     // 1. Récupération de OrderInformation et calcul du poids
     useEffect(() => {
         const stored = localStorage.getItem("orderInformation");
@@ -52,14 +54,16 @@ export default function ConfirmationLivraisonMainComponent() {
         );
     }, [carriers, totalWeightKg]);
 
-
+    const selectedCarrier = carriers.find((c) => c.id === selectedCarrierId);
+    const shippingPrice = selectedCarrier?.price ?? 0;
+    const orderTotal = orderInfo?.order.orderTotal ?? 0;
+    const finalTotal = orderTotal + shippingPrice;
 
     const handlePushCommand = async () => {
         if (!orderInfo) return;
 
         try {
             const { customer, addresses, order, orderItems } = orderInfo;
-
 
             const custRes = await fetch(`/api/customers`, {
                 method: "POST",
@@ -123,32 +127,58 @@ export default function ConfirmationLivraisonMainComponent() {
     if (!orderInfo) return <p>Chargement des informations...</p>;
 
     return (
-        <div className="p-8 bg-white">
-            <h1 className="text-2xl font-bold mb-4">Confirmation de la livraison</h1>
-            <p>Poids total : {totalWeightKg.toFixed(2)} kg</p>
+        <div className="p-8 bg-white space-y-8">
+            <h1 className="text-3xl font-bold">Confirmation de la livraison</h1>
+            <Link href={"/commande"}>
+            <Button variant="outline" className={"my-8 cursor-pointer"}>Retour à la page précédente</Button>
+            </Link>
+            <p className="text-gray-600">
+                Poids total : <span className="font-semibold">{totalWeightKg.toFixed(2)} kg</span>
+            </p>
+
+            {/* Récapitulatif des prix */}
+            <Card className="bg-gray-50">
+                <CardContent className="flex flex-col space-y-2">
+                    <div className="flex justify-between">
+                        <span>Total commande :</span>
+                        <span className="font-bold">{orderTotal.toFixed(2)} €</span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span>Frais de livraison :</span>
+                        <span className="font-bold">
+              {selectedCarrierId ? shippingPrice.toFixed(2) : "—"} €
+            </span>
+                    </div>
+                    <div className="flex justify-between text-lg">
+                        <span>Total à payer :</span>
+                        <span className="font-bold">{finalTotal.toFixed(2)} €</span>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Transporteurs */}
-            <div className="mt-6">
-                <h2 className="text-xl font-semibold mb-2">Choisissez un transporteur</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+                <h2 className="text-2xl font-semibold mb-4">Choisissez un transporteur</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {availableCarriers.map((carrier) => {
                         const isSelected = carrier.id === selectedCarrierId;
                         return (
                             <Card
                                 key={carrier.id}
-                                className={`cursor-pointer border transition-shadow hover:shadow-lg ${
+                                className={`cursor-pointer border transition-shadow hover:shadow-lg p-4 text-sm ${
                                     isSelected
                                         ? "border-primary bg-primary/10"
                                         : "border-gray-200"
                                 }`}
                                 onClick={() => setSelectedCarrierId(carrier.id)}
                             >
-                                <CardHeader>
-                                    <CardTitle className="text-lg">{carrier.name}</CardTitle>
+                                <CardHeader className="p-0 mb-2">
+                                    <CardTitle className="text-base">{carrier.name}</CardTitle>
                                 </CardHeader>
-                                <CardContent>
-                                    <p className="text-sm mb-1">{carrier.service_type}</p>
-                                    <p className="text-sm">Jusqu'à {carrier["max-weight"]} kg</p>
+                                <CardContent className="p-0 space-y-1">
+                                    <p>{carrier.service_type}</p>
+                                    <p>Jusqu'à {carrier["max-weight"]} kg</p>
+                                    <p className="font-semibold">{carrier.price.toFixed(2)} €</p>
                                 </CardContent>
                             </Card>
                         );
@@ -157,8 +187,8 @@ export default function ConfirmationLivraisonMainComponent() {
             </div>
 
             {/* Paiement */}
-            <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-2">Moyen de paiement</h2>
+            <div>
+                <h2 className="text-2xl font-semibold mb-4">Moyen de paiement</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {paymentMethods.map((method) => {
                         const isSelected = method === selectedPaymentMethod;
@@ -186,7 +216,7 @@ export default function ConfirmationLivraisonMainComponent() {
                 <Button
                     onClick={handlePushCommand}
                     disabled={!selectedCarrierId || !selectedPaymentMethod}
-                    className="mt-8 cursor-pointer disabled:cursor-not-allowed"
+                    className="mt-4 disabled:cursor-not-allowed"
                 >
                     Passer la commande
                 </Button>

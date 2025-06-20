@@ -1,4 +1,100 @@
 {
+  "orders": [
+    {
+      "id": "3b5c1809-879c-4ae1-84fa-7602caf7c79e",
+      "orderDate": "2025-06-20T13:35:30.566Z",
+      "status": "pending",
+      "customerId": "7588fa63-cb47-4985-a411-8d4301ac3f4b",
+      "shippingAddressId": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00",
+      "billingAddressId": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00",
+      "carrierId": "trk002",
+      "paymentId": "Carte Bancaire",
+      "orderTotal": 320
+    },
+    {
+      "id": "61b58e37-b2bb-4102-acf6-6f7286f4c004",
+      "orderDate": "2025-06-20T13:38:29.568Z",
+      "status": "pending",
+      "customerId": "80a3516e-8bc7-4375-8117-88adf995af0e",
+      "shippingAddressId": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e",
+      "billingAddressId": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e",
+      "carrierId": "trk005",
+      "paymentId": "Carte Bancaire",
+      "orderTotal": 660
+    }
+  ],
+  "order-items": [
+    {
+      "id": "4601a014-c521-4765-8e2e-e71434694cea",
+      "orderId": "3b5c1809-879c-4ae1-84fa-7602caf7c79e",
+      "productId": "f1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+      "quantity": 9,
+      "unitPrice": 35.5,
+      "totalPrice": 319.5
+    },
+    {
+      "id": "25b8fb35-a043-4ea2-9242-1fe291997cfc",
+      "orderId": "61b58e37-b2bb-4102-acf6-6f7286f4c004",
+      "productId": "7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2d",
+      "quantity": 12,
+      "unitPrice": 55,
+      "totalPrice": 660
+    }
+  ],
+  "addresses": [
+    {
+      "id": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00",
+      "street": "la rue de rue ",
+      "city": "saitrue",
+      "zipCode": "12345",
+      "country": "FR",
+      "addressType": "billing",
+      "userId": "7588fa63-cb47-4985-a411-8d4301ac3f4b"
+    },
+    {
+      "id": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00",
+      "street": "la rue de rue ",
+      "city": "saitrue",
+      "zipCode": "12345",
+      "country": "FR",
+      "addressType": "shipping",
+      "userId": "7588fa63-cb47-4985-a411-8d4301ac3f4b"
+    },
+    {
+      "id": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e",
+      "street": "ezaeza",
+      "city": "SaintSavin",
+      "zipCode": "33920",
+      "country": "FR",
+      "addressType": "billing",
+      "userId": "80a3516e-8bc7-4375-8117-88adf995af0e"
+    },
+    {
+      "id": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e",
+      "street": "ezaeza",
+      "city": "SaintSavin",
+      "zipCode": "33920",
+      "country": "FR",
+      "addressType": "shipping",
+      "userId": "80a3516e-8bc7-4375-8117-88adf995af0e"
+    }
+  ],
+  "customers": [
+    {
+      "id": "7588fa63-cb47-4985-a411-8d4301ac3f4b",
+      "name": "adrien",
+      "email": "adrienlazaillecode@gmail.com",
+      "defaultBillingAddressId": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00",
+      "defaultShippingAddressId": "665719a3-e9a1-43a7-aae8-19b2ff5a0f00"
+    },
+    {
+      "id": "80a3516e-8bc7-4375-8117-88adf995af0e",
+      "name": "Adrien",
+      "email": "lazailleadrien@gmail.com",
+      "defaultBillingAddressId": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e",
+      "defaultShippingAddressId": "1ecce5ea-ff3b-4244-a8b2-51fe4a398b6e"
+    }
+  ],
   "products": [
     {
       "id": "e0a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c",
@@ -22,7 +118,7 @@
       "description_long": "Affichez votre esprit d'aventure avec ce t-shirt doté d'un imprimé graphique original. Idéal pour ceux qui aiment explorer le monde et les styles audacieux.",
       "price": 35.5,
       "currency": "EUR",
-      "stock": 120,
+      "stock": 111,
       "category": "t-shirt",
       "weight": 200,
       "images": [
@@ -787,7 +883,7 @@
       "description_long": "Un pantalon de sport avec une coupe fuselée qui offre un look moderne et une grande aisance de mouvement pour vos activités sportives.",
       "price": 55,
       "currency": "EUR",
-      "stock": 120,
+      "stock": 108,
       "category": "pantalon",
       "weight": 350,
       "images": [
@@ -969,6 +1065,7 @@
       "area_served": "National",
       "average_rating": 4.5,
       "max-weight": 1,
+      "price": 2.5,
       "contact_email": "contact@expressrapide.fr",
       "phone": "+33123456789",
       "tracking_url_template": "https://expressrapide.fr/suivi?id={tracking_number}",
@@ -985,6 +1082,7 @@
       "area_served": "International",
       "average_rating": 4.2,
       "max-weight": 2,
+      "price": 3.75,
       "contact_email": "info@cargoglobal.com",
       "phone": "+12125550100",
       "tracking_url_template": "https://cargoglobal.com/track?ref={tracking_number}",
@@ -1001,6 +1099,7 @@
       "area_served": "Local (Grandes Villes)",
       "average_rating": 4.8,
       "max-weight": 1,
+      "price": 5.20,
       "contact_email": "support@ecocoursier.fr",
       "phone": "+33601020304",
       "tracking_url_template": "https://ecocoursier.fr/tracer?ref={tracking_number}",
@@ -1017,6 +1116,7 @@
       "area_served": "National",
       "average_rating": 3.9,
       "max-weight": 2.5,
+      "price": 11,
       "contact_email": "aide@transportfacile.fr",
       "phone": "+33987654321",
       "tracking_url_template": "https://transportfacile.fr/tracking/{tracking_number}",
@@ -1033,6 +1133,7 @@
       "area_served": "National / Europe",
       "average_rating": 4.7,
       "max-weight": 10,
+      "price": 13,
       "contact_email": "serviceclient@premiumexpress.eu",
       "phone": "+33711223344",
       "tracking_url_template": "https://premiumexpress.eu/suivi-colis?id={tracking_number}",
@@ -1049,6 +1150,7 @@
       "area_served": "Régional",
       "average_rating": 4.6,
       "max-weight": 12,
+      "price": 22.5,
       "contact_email": "contact@artisanlivraison.com",
       "phone": "+33500112233",
       "tracking_url_template": "https://artisanlivraison.com/suivi/{tracking_number}",
@@ -1065,6 +1167,7 @@
       "area_served": "National",
       "average_rating": 4.3,
       "max-weight": 23,
+      "price": 37,
       "contact_email": "partenaires@relaisproximite.fr",
       "phone": "+33890123456",
       "tracking_url_template": "https://relaisproximite.fr/trouver-colis/{tracking_number}",
