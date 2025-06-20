@@ -116,7 +116,8 @@ export default function ConfirmationLivraisonMainComponent() {
                     })
                 )
             );
-
+            localStorage.removeItem("orderInformation");
+            localStorage.removeItem("cart-storage");
             router.push("/fin-commande");
         } catch (err) {
             console.error("handlePushCommand:", err);
