@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+
 export default function ConfirmationLivraisonMainComponent() {
     const [orderInfo, setOrderInfo] = useState<OrderInformation | null>(null);
     const [totalWeightKg, setTotalWeightKg] = useState<number>(0);
@@ -31,8 +32,8 @@ export default function ConfirmationLivraisonMainComponent() {
         if (stored) {
             const info: OrderInformation = JSON.parse(stored);
             setOrderInfo(info);
-            const totalGrams = info.cartItems.reduce(
-                (sum, item) => sum + (item as any).weight * item.quantity,
+            const totalGrams = info.cartItems.reduce<number>(
+                (sum, item) => sum + ( (item.weight ?? 0) * item.quantity ),
                 0
             );
             setTotalWeightKg(totalGrams / 1000);
@@ -178,7 +179,7 @@ export default function ConfirmationLivraisonMainComponent() {
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-1">
                                     <p>{carrier.service_type}</p>
-                                    <p>Jusqu'à {carrier["max-weight"]} kg</p>
+                                    <p>Jusqu&aposà {carrier["max-weight"]} kg</p>
                                     <p className="font-semibold">{carrier.price.toFixed(2)} €</p>
                                 </CardContent>
                             </Card>

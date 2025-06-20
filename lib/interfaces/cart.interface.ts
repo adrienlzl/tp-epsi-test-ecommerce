@@ -6,6 +6,7 @@ export interface CartItem {
     image?: string;
     variantId?: string;
     variation?: string | { id: string; name: string; barcode: string };
+    weight? : number
 }
 
 export interface CartState {
