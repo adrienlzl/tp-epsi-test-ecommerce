@@ -1,4 +1,4 @@
-import type { Customer } from "@/lib/interfaces/interface";
+// import type { Customer } from "@/lib/interfaces/interface";
 
 const API_URL = process.env.JSON_SERVER_URL!;
 
