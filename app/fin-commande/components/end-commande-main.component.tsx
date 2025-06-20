@@ -9,6 +9,7 @@ import { CheckCircle } from "lucide-react";
 
 import { motion } from "framer-motion";
 import {useOrderStore} from "@/lib/store/order-stores";
+import { useCartStore } from "@/components/cart/cart-store";
 
 export default function EndCommandeMainComponent() {
     const order = useOrderStore((s) => s.order);
@@ -18,6 +19,8 @@ export default function EndCommandeMainComponent() {
     useEffect(() => {
         localStorage.removeItem("cart-storage");
         localStorage.removeItem("orderInformation");
+
+        useCartStore.getState().clearCart();
 
         const intervalId = setInterval(() => {
             setCountdown((prev) => prev - 1);
