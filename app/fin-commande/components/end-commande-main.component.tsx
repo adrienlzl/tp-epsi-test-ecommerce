@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
@@ -11,6 +12,26 @@ import {useOrderStore} from "@/lib/store/order-stores";
 
 export default function EndCommandeMainComponent() {
     const order = useOrderStore((s) => s.order);
+    const router = useRouter();
+    const [countdown, setCountdown] = useState(7);
+
+    useEffect(() => {
+        localStorage.removeItem("cart-storage");
+        localStorage.removeItem("order-information");
+
+        const intervalId = setInterval(() => {
+            setCountdown((prev) => prev - 1);
+        }, 1000);
+
+        const timeoutId = setTimeout(() => {
+            router.push("/");
+        }, 7000);
+
+        return () => {
+            clearInterval(intervalId);
+            clearTimeout(timeoutId);
+        };
+    }, [router]);
 
     return (
         <motion.div
@@ -34,11 +55,16 @@ export default function EndCommandeMainComponent() {
                 <CardContent>
                     <p className="mt-4 text-gray-700">
                         Votre commande a bien été prise en compte. Nous vous enverrons une confirmation
-                        par email sous peu. Vous pouvez suivre l’avancement de votre livraison dans votre
+                        par email sous peu. Vous pouvez suivre l&apos;avancement de votre livraison dans votre
                         compte client.
                     </p>
+
+                    <p className="mt-6 text-sm text-gray-500">
+                        Vous allez être redirigé{countdown > 0 ? ` dans ${countdown} seconde${countdown > 1 ? "s" : ""}` : ""}...
+                    </p>
+
                     <Button asChild className="mt-8 w-full" variant="secondary">
-                        <Link href="/">Retour à l’accueil</Link>
+                        <Link href="/">Retour à l&apos;accueil</Link>
                     </Button>
                 </CardContent>
             </Card>

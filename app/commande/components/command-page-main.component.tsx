@@ -194,7 +194,7 @@ export default function CommandPageMainComponent() {
 
             <div className="flex mx-auto my-20 items-center">
                 <p className="tendre-black font-bold text-xl mx-4">
-                    Finaliser votre commande en ligne
+                    Votre commande
                 </p>
                 <Dialog>
                     <DialogTrigger>
@@ -331,7 +331,7 @@ export default function CommandPageMainComponent() {
                 </Card>
             </div>
 
-            <div className="flex flex-col bg-white mb-12">
+            <div className="flex flex-col bg-white my-12">
                 <Button onClick={handleConfirmOrder} disabled={!isFormValid} className="mx-auto">
                     Confirmer la commande
                 </Button>

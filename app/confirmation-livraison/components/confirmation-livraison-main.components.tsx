@@ -128,14 +128,22 @@ export default function ConfirmationLivraisonMainComponent() {
     if (!orderInfo) return <p>Chargement des informations...</p>;
 
     return (
-        <div className="p-8 bg-white">
-            <h1 className="text-2xl font-bold mb-4">Confirmation de la livraison</h1>
-            <p>Poids total : {totalWeightKg.toFixed(2)} kg</p>
+        <div className="bg-white">
+            <Button
+                variant="ghost"
+                onClick={() => router.push('/')}
+                className="w-fit ml-4 mt-6 text-sm text-gray-600 hover:text-black cursor-pointer"
+            >
+                ← Retour à la boutique
+            </Button>
+            <div className="flex mx-auto my-8 items-center justify-center">
+                <h1 className="text-2xl font-bold">Choix du transporteur</h1>
+            </div>
+            <p className="pl-16">Poids total : {totalWeightKg.toFixed(2)} kg</p>
 
             {/* Transporteurs */}
             <div className="mt-6">
-                <h2 className="text-xl font-semibold mb-2">Choisissez un transporteur</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-16">
                     {availableCarriers.map((carrier) => {
                         const isSelected = carrier.id === selectedCarrierId;
                         return (
@@ -153,7 +161,7 @@ export default function ConfirmationLivraisonMainComponent() {
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-sm mb-1">{carrier.service_type}</p>
-                                    <p className="text-sm">Jusqu'à {carrier["max-weight"]} kg</p>
+                                    <p className="text-sm">Jusqu&apos;à {carrier["max-weight"]} kg</p>
                                 </CardContent>
                             </Card>
                         );
@@ -163,14 +171,16 @@ export default function ConfirmationLivraisonMainComponent() {
 
             {/* Paiement */}
             <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-2">Moyen de paiement</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex mx-auto my-8 items-center justify-center">
+                    <h1 className="text-2xl font-bold">Choix du moyen de paiement</h1>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mx-16">
                     {paymentMethods.map((method) => {
                         const isSelected = method === selectedPaymentMethod;
                         return (
                             <Card
                                 key={method}
-                                className={`cursor-pointer border transition-shadow hover:shadow-lg text-center py-4 ${
+                                className={`cursor-pointer border transition-shadow hover:shadow-lg text-center py-3 ${
                                     isSelected
                                         ? "border-primary bg-primary/10"
                                         : "border-gray-200"
@@ -186,15 +196,27 @@ export default function ConfirmationLivraisonMainComponent() {
                 </div>
             </div>
 
-            {/* Bouton final */}
-            <div className="flex justify-center">
-                <Button
-                    onClick={handlePushCommand}
-                    disabled={!selectedCarrierId || !selectedPaymentMethod}
-                    className="mt-8 cursor-pointer disabled:cursor-not-allowed"
-                >
-                    Passer la commande
-                </Button>
+            <div className="flex justify-center items-center gap-8 mt-8">
+                {/* Bouton revenir à l'étape précédente */}
+                <div className="flex justify-center mt-4 mb-12">
+                    <Button
+                        onClick={() => router.push("/commande")}
+                        className="cursor-pointer"
+                    >
+                        Etape précédente
+                    </Button>
+                </div>
+
+                {/* Bouton final */}
+                <div className="flex justify-center mt-4 mb-12">
+                    <Button
+                        onClick={handlePushCommand}
+                        disabled={!selectedCarrierId || !selectedPaymentMethod}
+                        className="cursor-pointer disabled:cursor-not-allowed"
+                    >
+                        Passer la commande
+                    </Button>
+                </div>
             </div>
         </div>
     );
