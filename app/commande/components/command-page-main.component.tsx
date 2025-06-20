@@ -60,16 +60,16 @@ export default function CommandPageMainComponent() {
     const isFormValid = validName && validEmail && validStreet && validCity && validZip;
 
     useEffect(() => {
-        const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ]{3,}$/u;
+        const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/u;
         setValidName(nameRe.test(customerName.trim()));
 
         const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setValidEmail(emailRe.test(customerEmail));
 
-        const streetRe = /^[A-Za-z0-9\s]{3,}$/;
+        const streetRe = /^[A-Za-z0-9,\s]{3,}$/;
         setValidStreet(streetRe.test(billingAddress.street.trim()));
 
-        const cityRe = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/u;
+        const cityRe = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{3,}$/u;
         setValidCity(cityRe.test(billingAddress.city.trim()));
 
         const zipRe = /^\d{5}$/;

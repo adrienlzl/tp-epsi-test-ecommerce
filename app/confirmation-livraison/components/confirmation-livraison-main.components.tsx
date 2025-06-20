@@ -66,7 +66,12 @@ export default function ConfirmationLivraisonMainComponent() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(customer),
             });
-            if (!custRes.ok) throw new Error("Échec création customer");
+            if (!custRes.ok) {
+                const errData = await custRes.json().catch(() => ({}));
+                console.error("Erreur API /api/customers :", custRes.status, errData);
+                throw new Error("Échec création customer");
+            }
+            // if (!custRes.ok) throw new Error("Échec création customer");
             const createdCustomer = await custRes.json();
 
             await Promise.all(

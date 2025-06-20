@@ -23,8 +23,10 @@ export async function GET() {
 
 // POST /api/customers
 export async function POST(req: Request) {
+    console.log("📩 Route POST /api/customers appelée");
     // 1. On lit le body JSON
     const body = await req.json();
+    console.log("🔍 Body reçu :", body);
 
     // 2. On forwarde vers le JSON-Server
     const upstream = await fetch(`${API_URL}/customers`, {
@@ -38,6 +40,7 @@ export async function POST(req: Request) {
 
     // 4. En cas d’erreur upstream, on renvoie ce texte et le code identique
     if (!upstream.ok) {
+        console.error("❌ Erreur proxy JSON Server :", upstream.status, text);
         return new Response(text, {
             status: upstream.status,
             headers: { "Content-Type": "text/plain" },
@@ -50,3 +53,11 @@ export async function POST(req: Request) {
         headers: { "Content-Type": "application/json" },
     });
 }
+
+// export async function POST(req: Request) {
+//     console.log("✅ route API montée !");
+//     return new Response(JSON.stringify({ ok: true }), {
+//         status: 201,
+//         headers: { "Content-Type": "application/json" },
+//     });
+// }

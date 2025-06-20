@@ -1,5 +1,105 @@
 {
-  "carrers": [],
+  "customers": [
+    {
+      "id": "8bc122a8-e790-4049-8552-85fa7c885bda",
+      "name": "Lefevre Emmanuel",
+      "email": "Emmanuel@yahoo.fr",
+      "defaultBillingAddressId": "95a414f5-11ac-4fe2-9eb3-c738d12a98a7",
+      "defaultShippingAddressId": "95a414f5-11ac-4fe2-9eb3-c738d12a98a7"
+    },
+    {
+      "id": "5ba49417-f03e-4315-9389-8f2d51e9a982",
+      "name": "Lefevre Emmanuel",
+      "email": "yahoo@yahoo.fr",
+      "defaultBillingAddressId": "93723d04-e0d8-4f0d-807c-ae267bc76212",
+      "defaultShippingAddressId": "93723d04-e0d8-4f0d-807c-ae267bc76212"
+    },
+    {
+      "id": "52ef7cb5-4546-4d0b-a9fb-ddcd2e14be0b",
+      "name": "Lefevre Emmanuel",
+      "email": "yahoo@yahoo.fr",
+      "defaultBillingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
+      "defaultShippingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794"
+    }
+  ],
+  "orders": [
+    {
+      "id": "f3b84a7c-6737-4987-85dd-d690cefcacac",
+      "orderDate": "2025-06-20T13:47:35.022Z",
+      "status": "pending",
+      "customerId": "5ba49417-f03e-4315-9389-8f2d51e9a982",
+      "shippingAddressId": "93723d04-e0d8-4f0d-807c-ae267bc76212",
+      "billingAddressId": "93723d04-e0d8-4f0d-807c-ae267bc76212",
+      "carrierId": "trk002",
+      "paymentId": "Carte Bancaire",
+      "orderTotal": 192
+    },
+    {
+      "id": "044612ac-ec3d-4622-a547-f6ab840b18be",
+      "orderDate": "2025-06-20T14:02:07.150Z",
+      "status": "pending",
+      "customerId": "52ef7cb5-4546-4d0b-a9fb-ddcd2e14be0b",
+      "shippingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
+      "billingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
+      "carrierId": "trk004",
+      "paymentId": "PayPal",
+      "orderTotal": 342
+    }
+  ],
+  "order-items": [
+    {
+      "id": "eafb7637-11b1-4e3d-b8e8-0c7d78dd832c",
+      "orderId": "f3b84a7c-6737-4987-85dd-d690cefcacac",
+      "productId": "e0a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c",
+      "quantity": 2,
+      "unitPrice": 25,
+      "totalPrice": 50
+    },
+    {
+      "id": "55362fe8-3ae0-4e6c-90ea-96dce6eed3c7",
+      "orderId": "f3b84a7c-6737-4987-85dd-d690cefcacac",
+      "productId": "f1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+      "quantity": 4,
+      "unitPrice": 35.5,
+      "totalPrice": 142
+    },
+    {
+      "id": "176413c8-4fb2-4398-8fd2-b83ecd34f636",
+      "orderId": "044612ac-ec3d-4622-a547-f6ab840b18be",
+      "productId": "f1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+      "quantity": 4,
+      "unitPrice": 35.5,
+      "totalPrice": 142
+    },
+    {
+      "id": "c4ceebf8-437e-40bc-9673-f1f78ca9d509",
+      "orderId": "044612ac-ec3d-4622-a547-f6ab840b18be",
+      "productId": "e0a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c",
+      "quantity": 8,
+      "unitPrice": 25,
+      "totalPrice": 200
+    }
+  ],
+  "addresses": [
+    {
+      "id": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
+      "street": "4, rue des fleurs",
+      "city": "Saint-Savin",
+      "zipCode": "33920",
+      "country": "FR",
+      "addressType": "billing",
+      "userId": "52ef7cb5-4546-4d0b-a9fb-ddcd2e14be0b"
+    },
+    {
+      "id": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
+      "street": "4, rue des fleurs",
+      "city": "Saint-Savin",
+      "zipCode": "33920",
+      "country": "FR",
+      "addressType": "shipping",
+      "userId": "52ef7cb5-4546-4d0b-a9fb-ddcd2e14be0b"
+    }
+  ],
   "products": [
     {
       "id": "e0a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c",
@@ -8,8 +108,8 @@
       "description_long": "Ce t-shirt blanc en coton 100% biologique offre une sensation douce et confortable. Un basique indispensable pour un style décontracté et éco-responsable.",
       "price": 25,
       "currency": "EUR",
-      "stock": 170,
-            "category": "t-shirt",
+      "stock": 160,
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_bio_blanc_1.jpg",
@@ -23,8 +123,8 @@
       "description_long": "Affichez votre esprit d'aventure avec ce t-shirt doté d'un imprimé graphique original. Idéal pour ceux qui aiment explorer le monde et les styles audacieux.",
       "price": 35.5,
       "currency": "EUR",
-      "stock": 120,
-            "category": "t-shirt",
+      "stock": 112,
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_voyage_1.jpg",
@@ -39,7 +139,7 @@
       "price": 29.99,
       "currency": "EUR",
       "stock": 150,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_rayures_marines_1.jpg",
@@ -54,7 +154,7 @@
       "price": 19,
       "currency": "EUR",
       "stock": 250,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_col_v_noir_1.jpg",
@@ -69,7 +169,7 @@
       "price": 40,
       "currency": "EUR",
       "stock": 100,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_sport_1.jpg",
@@ -84,7 +184,7 @@
       "price": 32,
       "currency": "EUR",
       "stock": 180,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_ml_gris_1.jpg",
@@ -99,7 +199,7 @@
       "price": 28.5,
       "currency": "EUR",
       "stock": 90,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_vintage_noir_1.jpg",
@@ -114,7 +214,7 @@
       "price": 26,
       "currency": "EUR",
       "stock": 130,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_cotele_beige_1.jpg",
@@ -129,7 +229,7 @@
       "price": 22,
       "currency": "EUR",
       "stock": 160,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_uni_vert_1.jpg",
@@ -144,7 +244,7 @@
       "price": 30,
       "currency": "EUR",
       "stock": 110,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_loose_blanc_1.jpg",
@@ -159,7 +259,7 @@
       "price": 45,
       "currency": "EUR",
       "stock": 80,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_tie_dye_1.jpg",
@@ -174,7 +274,7 @@
       "price": 38,
       "currency": "EUR",
       "stock": 95,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_henley_1.jpg",
@@ -189,7 +289,7 @@
       "price": 33,
       "currency": "EUR",
       "stock": 140,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_oversize_poche_1.jpg",
@@ -204,7 +304,7 @@
       "price": 37,
       "currency": "EUR",
       "stock": 70,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_geometrique_1.jpg",
@@ -219,7 +319,7 @@
       "price": 19,
       "currency": "EUR",
       "stock": 220,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_bleu_marine_1.jpg",
@@ -234,7 +334,7 @@
       "price": 30,
       "currency": "EUR",
       "stock": 100,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_col_montant_1.jpg",
@@ -249,7 +349,7 @@
       "price": 15,
       "currency": "EUR",
       "stock": 300,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_enfant_1.jpg",
@@ -264,7 +364,7 @@
       "price": 24,
       "currency": "EUR",
       "stock": 140,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_slim_kaki_1.jpg",
@@ -279,7 +379,7 @@
       "price": 28,
       "currency": "EUR",
       "stock": 110,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_sl_sport_1.jpg",
@@ -294,7 +394,7 @@
       "price": 42,
       "currency": "EUR",
       "stock": 90,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_pima_1.jpg",
@@ -309,7 +409,7 @@
       "price": 31,
       "currency": "EUR",
       "stock": 120,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_logo_brode_1.jpg",
@@ -324,7 +424,7 @@
       "price": 27,
       "currency": "EUR",
       "stock": 160,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_col_large_femme_1.jpg",
@@ -339,7 +439,7 @@
       "price": 39,
       "currency": "EUR",
       "stock": 85,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_sechage_rapide_1.jpg",
@@ -354,7 +454,7 @@
       "price": 26,
       "currency": "EUR",
       "stock": 170,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_minimal_1.jpg",
@@ -369,7 +469,7 @@
       "price": 38,
       "currency": "EUR",
       "stock": 95,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_photo_ville_1.jpg",
@@ -384,7 +484,7 @@
       "price": 25,
       "currency": "EUR",
       "stock": 130,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_bio_jaune_1.jpg",
@@ -399,7 +499,7 @@
       "price": 36,
       "currency": "EUR",
       "stock": 60,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_moto_1.jpg",
@@ -414,7 +514,7 @@
       "price": 45,
       "currency": "EUR",
       "stock": 100,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_sans_coutures_1.jpg",
@@ -429,7 +529,7 @@
       "price": 32,
       "currency": "EUR",
       "stock": 115,
-            "category": "t-shirt",
+      "category": "t-shirt",
       "weight": 200,
       "images": [
         "https://example.com/images/tshirt_boxy_creme_1.jpg",
@@ -929,7 +1029,7 @@
       "area_served": "Local (Grandes Villes)",
       "average_rating": 4.8,
       "max-weight": 1,
-      "price": 5.20,
+      "price": 5.2,
       "contact_email": "support@ecocoursier.fr",
       "phone": "+33601020304",
       "tracking_url_template": "https://ecocoursier.fr/tracer?ref={tracking_number}",
