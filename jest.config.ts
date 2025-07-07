@@ -1,10 +1,13 @@
 export default {
     preset: 'ts-jest',
-    testEnvironment: 'node',
+    testEnvironment: 'jsdom',
+    transform: {
+        '^.+\\.(ts|tsx)$': 'ts-jest',
+    },
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/$1'
     },
-    setupFiles: ['<rootDir>/jest.setup.ts'],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     collectCoverage: true,
     coverageProvider: 'v8',
     collectCoverageFrom: [
