@@ -11,7 +11,7 @@ export const AddressesPaths = {
             "application/json": {
               schema: {
                 type: "array",
-                items: { $ref: "#/components/schemas/Address" }
+                items: { $ref: "#/components/schemas/Addresse" }
               }
             }
           }
@@ -42,7 +42,7 @@ export const AddressesPaths = {
         required: true,
         content: {
           "application/json": {
-            schema: { $ref: "#/components/schemas/Address" }
+            schema: { $ref: "#/components/schemas/Addresse" }
           }
         }
       },
@@ -51,7 +51,7 @@ export const AddressesPaths = {
           description: "Adresse créée avec succès.",
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/Address" }
+              schema: { $ref: "#/components/schemas/Addresse" }
             }
           }
         },
@@ -98,7 +98,7 @@ export const AddressesPaths = {
           description: "Adresse trouvée avec succès.",
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/Address" }
+              schema: { $ref: "#/components/schemas/Addresse" }
             }
           }
         },
