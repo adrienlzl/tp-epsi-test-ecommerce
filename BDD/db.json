@@ -20,6 +20,13 @@
       "email": "yahoo@yahoo.fr",
       "defaultBillingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794",
       "defaultShippingAddressId": "9e4cbfdb-2f90-4c1f-ad42-36de0dfeb794"
+    },
+    {
+      "id": "484a6ca8-4bdf-4e27-a2d8-d5327bdd2ac3",
+      "name": "adrt",
+      "email": "lazailleadrien@gmail.com",
+      "defaultBillingAddressId": "7a5fa47e-fbe1-4923-9e65-145efcf0874f",
+      "defaultShippingAddressId": "7a5fa47e-fbe1-4923-9e65-145efcf0874f"
     }
   ],
   "orders": [
@@ -44,6 +51,17 @@
       "carrierId": "trk004",
       "paymentId": "PayPal",
       "orderTotal": 342
+    },
+    {
+      "id": "4c212885-d4d6-4314-a97b-a02a9eddacd4",
+      "orderDate": "2025-07-07T13:13:36.018Z",
+      "status": "pending",
+      "customerId": "484a6ca8-4bdf-4e27-a2d8-d5327bdd2ac3",
+      "shippingAddressId": "7a5fa47e-fbe1-4923-9e65-145efcf0874f",
+      "billingAddressId": "7a5fa47e-fbe1-4923-9e65-145efcf0874f",
+      "carrierId": "trk001",
+      "paymentId": "Carte Bancaire",
+      "orderTotal": 178
     }
   ],
   "order-items": [
@@ -78,6 +96,14 @@
       "quantity": 8,
       "unitPrice": 25,
       "totalPrice": 200
+    },
+    {
+      "id": "a51c9b77-641d-4e00-9d89-c97fbcc73c29",
+      "orderId": "4c212885-d4d6-4314-a97b-a02a9eddacd4",
+      "productId": "f1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+      "quantity": 5,
+      "unitPrice": 35.5,
+      "totalPrice": 177.5
     }
   ],
   "addresses": [
@@ -98,6 +124,24 @@
       "country": "FR",
       "addressType": "shipping",
       "userId": "52ef7cb5-4546-4d0b-a9fb-ddcd2e14be0b"
+    },
+    {
+      "id": "7a5fa47e-fbe1-4923-9e65-145efcf0874f",
+      "street": "25 rue des chi",
+      "city": "paillo",
+      "zipCode": "33520",
+      "country": "FR",
+      "addressType": "shipping",
+      "userId": "484a6ca8-4bdf-4e27-a2d8-d5327bdd2ac3"
+    },
+    {
+      "id": "7a5fa47e-fbe1-4923-9e65-145efcf0874f",
+      "street": "25 rue des chi",
+      "city": "paillo",
+      "zipCode": "33520",
+      "country": "FR",
+      "addressType": "billing",
+      "userId": "484a6ca8-4bdf-4e27-a2d8-d5327bdd2ac3"
     }
   ],
   "products": [
@@ -123,7 +167,7 @@
       "description_long": "Affichez votre esprit d'aventure avec ce t-shirt doté d'un imprimé graphique original. Idéal pour ceux qui aiment explorer le monde et les styles audacieux.",
       "price": 35.5,
       "currency": "EUR",
-      "stock": 112,
+      "stock": 107,
       "category": "t-shirt",
       "weight": 200,
       "images": [

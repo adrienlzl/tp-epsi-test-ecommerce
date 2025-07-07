@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCartStore } from "@/components/cart/cart-store";
-
 import { Button } from "@/components/ui/button";
 import {CartItem} from "@/lib/interfaces/cart.interface";
 
