@@ -117,6 +117,7 @@ export interface Carrier {
     tracking_url_template: string;
     /** Liste de fonctionnalités proposées */
     features: string[];
+    price: number
 }
 
 /**

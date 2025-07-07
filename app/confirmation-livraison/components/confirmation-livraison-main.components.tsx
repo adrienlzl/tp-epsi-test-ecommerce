@@ -23,6 +23,11 @@ export default function ConfirmationLivraisonMainComponent() {
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
 
     const router = useRouter();
+
+    // utilitaire pour formater les prix en "12,50 €"
+    const formatPrice = (value: number) =>
+        value.toFixed(2).replace(".", ",") + " €";
+
     // 1. Récupération de OrderInformation et calcul du poids
     useEffect(() => {
         const stored = localStorage.getItem("orderInformation");
@@ -52,14 +57,22 @@ export default function ConfirmationLivraisonMainComponent() {
         );
     }, [carriers, totalWeightKg]);
 
+    // calcul des sous-totaux et totaux
+    const subTotalPrice: number = orderInfo
+        ? orderInfo.orderItems.reduce((sum, oi) => sum + oi.totalPrice, 0)
+        : 0;
 
+    // On récupère explicitement le carrier sélectionné, et on force shippingCost en number
+    const selectedCarrier = carriers.find((c) => c.id === selectedCarrierId);
+    const shippingCost: number = selectedCarrier ? selectedCarrier.price : 0;
+
+    const totalPrice: number = subTotalPrice + shippingCost;
 
     const handlePushCommand = async () => {
         if (!orderInfo) return;
 
         try {
             const { customer, addresses, order, orderItems } = orderInfo;
-
 
             const custRes = await fetch(`/api/customers`, {
                 method: "POST",
@@ -71,7 +84,6 @@ export default function ConfirmationLivraisonMainComponent() {
                 console.error("Erreur API /api/customers :", custRes.status, errData);
                 throw new Error("Échec création customer");
             }
-            // if (!custRes.ok) throw new Error("Échec création customer");
             const createdCustomer = await custRes.json();
 
             await Promise.all(
@@ -131,15 +143,21 @@ export default function ConfirmationLivraisonMainComponent() {
         <div className="bg-white">
             <Button
                 variant="ghost"
-                onClick={() => router.push('/')}
+                onClick={() => router.push("/")}
                 className="w-fit ml-4 mt-6 text-sm text-gray-600 hover:text-black cursor-pointer"
             >
                 ← Retour à la boutique
             </Button>
+
             <div className="flex mx-auto my-8 items-center justify-center">
                 <h1 className="text-2xl font-bold">Choix du transporteur</h1>
             </div>
-            <p className="pl-16">Poids total : {totalWeightKg.toFixed(2)} kg</p>
+            <p className="pl-16">
+                Poids total : {totalWeightKg.toFixed(2).replace(".", ",")} kg
+            </p>
+            <p className="pl-16 mt-4">
+                Liste des transporteurs disponible :
+            </p>
 
             {/* Transporteurs */}
             <div className="mt-6">
@@ -149,11 +167,14 @@ export default function ConfirmationLivraisonMainComponent() {
                         return (
                             <Card
                                 key={carrier.id}
-                                className={`cursor-pointer border transition-shadow hover:shadow-lg ${
+                                className={`
+                  cursor-pointer border transition-shadow hover:shadow-lg
+                  ${
                                     isSelected
                                         ? "border-primary bg-primary/10"
                                         : "border-gray-200"
-                                }`}
+                                }
+                `}
                                 onClick={() => setSelectedCarrierId(carrier.id)}
                             >
                                 <CardHeader>
@@ -161,7 +182,12 @@ export default function ConfirmationLivraisonMainComponent() {
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-sm mb-1">{carrier.service_type}</p>
-                                    <p className="text-sm">Jusqu&apos;à {carrier["max-weight"]} kg</p>
+                                    <p className="text-sm">
+                                        Jusqu&apos;à {carrier["max-weight"]} kg
+                                    </p>
+                                    <p className="text-sm mt-2 font-medium">
+                                        {formatPrice(carrier.price)}
+                                    </p>
                                 </CardContent>
                             </Card>
                         );
@@ -169,7 +195,30 @@ export default function ConfirmationLivraisonMainComponent() {
                 </div>
             </div>
 
-            {/* Paiement */}
+            {/* Carte récapitulative des prix */}
+            <div className="mt-8 mx-auto max-w-md">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Total de votre commande</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex justify-between mb-2">
+                            <span>Sous-total articles</span>
+                            <span>{formatPrice(subTotalPrice)}</span>
+                        </div>
+                        <div className="flex justify-between mb-2">
+                            <span>Frais de port</span>
+                            <span>{formatPrice(shippingCost)}</span>
+                        </div>
+                        <div className="flex justify-between font-bold">
+                            <span>Total</span>
+                            <span>{formatPrice(totalPrice)}</span>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Section Paiement */}
             <div className="mt-8">
                 <div className="flex mx-auto my-8 items-center justify-center">
                     <h1 className="text-2xl font-bold">Choix du moyen de paiement</h1>
@@ -180,11 +229,14 @@ export default function ConfirmationLivraisonMainComponent() {
                         return (
                             <Card
                                 key={method}
-                                className={`cursor-pointer border transition-shadow hover:shadow-lg text-center py-3 ${
+                                className={`
+                  cursor-pointer border transition-shadow hover:shadow-lg text-center py-3
+                  ${
                                     isSelected
                                         ? "border-primary bg-primary/10"
                                         : "border-gray-200"
-                                }`}
+                                }
+                `}
                                 onClick={() => setSelectedPaymentMethod(method)}
                             >
                                 <CardContent>
@@ -196,27 +248,21 @@ export default function ConfirmationLivraisonMainComponent() {
                 </div>
             </div>
 
-            <div className="flex justify-center items-center gap-8 mt-8">
-                {/* Bouton revenir à l'étape précédente */}
-                <div className="flex justify-center mt-4 mb-12">
-                    <Button
-                        onClick={() => router.push("/commande")}
-                        className="cursor-pointer"
-                    >
-                        Etape précédente
-                    </Button>
-                </div>
-
-                {/* Bouton final */}
-                <div className="flex justify-center mt-4 mb-12">
-                    <Button
-                        onClick={handlePushCommand}
-                        disabled={!selectedCarrierId || !selectedPaymentMethod}
-                        className="cursor-pointer disabled:cursor-not-allowed"
-                    >
-                        Passer la commande
-                    </Button>
-                </div>
+            {/* Boutons précédent / valider */}
+            <div className="flex justify-center items-center gap-8 mt-8 mb-12">
+                <Button
+                    onClick={() => router.push("/commande")}
+                    className="cursor-pointer"
+                >
+                    Étape précédente
+                </Button>
+                <Button
+                    onClick={handlePushCommand}
+                    disabled={!selectedCarrierId || !selectedPaymentMethod}
+                    className="cursor-pointer disabled:cursor-not-allowed"
+                >
+                    Passer la commande
+                </Button>
             </div>
         </div>
     );
